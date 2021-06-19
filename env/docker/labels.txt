@@ -1,0 +1,3 @@
+com.kagemeka.author=kagemeka
+com.kagemeka.maintainer=kagemeka
+com.kagemeka.gpu=true
