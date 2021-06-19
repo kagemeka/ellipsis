@@ -137,21 +137,22 @@ COPY --from=builder /root/requirements.txt /root/
 WORKDIR /root/ 
 ARG PYVER=3.9
 RUN apt update \
-    # && add-apt-repository \
-    # ppa:deadsnakes/ppa \
-    # && apt -q=2 update \
-    # && apt install -y \
-    # python${PYVER} \
-    # python${PYVER}-distutils \
-    # python${PYVER}-dev \
-    # && rm /usr/bin/python3 \
-    # && ln -s \
-    # /usr/bin/python${PYVER} \
-    # /usr/bin/python3 \
-    # && curl \
-    # https://bootstrap.pypa.io/get-pip.py \
-    # -o get-pip.py \
-    # && python3 get-pip.py
+    && add-apt-repository \
+    ppa:deadsnakes/ppa \
+    && apt -q=2 update \
+    && apt install -y \
+    python${PYVER} \
+    python${PYVER}-distutils \
+    python${PYVER}-dev \
+    python3-pip \
+    && rm /usr/bin/python3 \
+    && ln -s \
+    /usr/bin/python${PYVER} \
+    /usr/bin/python3 \
+    && curl \
+    https://bootstrap.pypa.io/get-pip.py \
+    -o get-pip.py \
+    && python3 get-pip.py \
     && ln -sn \
     /usr/bin/python3 \
     /usr/bin/python \
