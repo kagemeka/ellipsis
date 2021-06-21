@@ -6,12 +6,12 @@ configs:
     # driver_opts:
     external: false
     file: ./pseudo_config.txt
-    name: cp
+    name: ellipsis
     template_driver: golang 
 
 
 networks:
-  py:
+  backend:
     attachable: false
     driver: bridge
     # driver_opts:
@@ -21,39 +21,39 @@ networks:
       driver: default
       config:
         - subnet: 
-            172.168.0.0/24
+            172.168.16.0/24
     labels:
       com.kagemeka.author: >
         kagemeka
-    name: cp
+    name: ellipsis
 
 
 secrets:
   pseudo_secret :
     external: false
     file: ./pseudo_secret.txt
-    name: cp
+    name: ellipsis
     template_driver: golang 
 
 
 services:
-  py:
+  main:
     build:
       args:
         - PYVER
-        # - TZ
+        - CUDA_VER
       cache_from: 
         - ubuntu:latest
       context: $ROOT/env/
       dockerfile:
         "docker/\
-        Dockerfile.cp-py"
+        Dockerfile.ellipsis"
       labels:
         com.kagemeka.author: >
           kagemeka
       network: host
       shm_size: 64m
-      target: python-stage
+      target: on-gpu 
     cap_add:
       - ALL
     cap_drop:
@@ -62,7 +62,7 @@ services:
     command: []
     # configs:
     # credential_spec: 
-    container_name: cp-py
+    container_name: ellipsis
     # depends_on:
       # - other_service
     deploy:
@@ -123,6 +123,8 @@ services:
       DISPLAY: ${DISPLAY:-:0}
     expose:
       - 8888
+      - 5000
+      - 3306
     external_links:
       - pseudo-container:alias
     # extra_hosts:
@@ -139,7 +141,7 @@ services:
       ]
       timeout: 4s 
     hostname: kagemeka
-    image: kagemeka/cp-py
+    image: kagemeka/ellipsis
     init: true
     ipc: host
     isolation: default
@@ -155,11 +157,11 @@ services:
     
     # network_mode: bridge
     networks:
-      py:
+      backend:
         aliases:
-          - python
+          - ellipsis
         ipv4_address: 
-          172.168.0.16
+          172.168.16.16
     
     pid: host
     ports:
@@ -177,7 +179,7 @@ services:
       - gid: '0'
         mode: 0444
         source: pseudo_secret
-        target: py_secret
+        target: ellipsis_secret
         uid: '0'
     # security_opt:
       # - 
@@ -222,11 +224,11 @@ services:
 
 
 volumes:
-  cp-py:
+  main:
     driver: local
     # driver_opts:
     external: false
     labels:
       com.kagemeka.author: >
         kagemeka
-    name: cp
+    name: ellipsis
