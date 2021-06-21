@@ -292,7 +292,7 @@ WORKDIR /root/
 RUN apt -q=2 update \
     && wget https://github.com/mozilla/geckodriver/releases/download/v$VER/geckodriver-v$VER-linux64.tar.gz \
     && tar -C /usr/bin/ \
-    -xvzf geckodriver* \
+    -xvzf geckodriver*.tar.gz \
     && rm geckodriver* \
     && chmod +x /usr/bin/geckodriver
 
