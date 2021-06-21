@@ -135,6 +135,7 @@ tfds-nightly
 tf-models-official
 tf-nightly
 toml
+filetype
 torch
 torchaudio 
 torchtext
