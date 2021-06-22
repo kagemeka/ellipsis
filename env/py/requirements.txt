@@ -125,18 +125,19 @@
 tensorboard 
 tensorboardX 
 tensorflow-addons
-tensorflow-datasets
+# tensorflow-datasets
 tensorflow
 tensorflow-hub
 tensorflow-io
-tensorflow-text
+# tensorflow-text
 # texthero
 tfds-nightly
-tf-models-official
-tf-nightly
+# tf-models-official
+# tf-nightly
 # toml
 # filetype
 # torch
+# python-xlib
 # torchaudio 
 # torchtext
 # torchvideo

@@ -144,6 +144,7 @@ RUN apt update \
     python${PYVER} \
     python${PYVER}-distutils \
     python${PYVER}-dev \
+    python${PYVER}-tk \
     python3-pip \
     && rm /usr/bin/python3 \
     && ln -s \
