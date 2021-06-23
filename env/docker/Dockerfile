@@ -53,6 +53,7 @@ RUN ln -snf \
     curl \
     default-jdk \
     default-jre \
+    default-libmysqlclient-dev \
     ffmpeg \
     file \
     firefox \
