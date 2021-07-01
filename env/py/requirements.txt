@@ -108,6 +108,7 @@
 # requests
 # scikit-learn
 # pymongo
+# awslambdaric
 # redis
 # pytest
 # python-docx
@@ -147,7 +148,7 @@ tfds-nightly
 # transformers 
 # twine
 # uvicorn
-# webdriver_manager
+# webdriver-manager
 # wget
 # wikiextractor
 # wordcloud     
