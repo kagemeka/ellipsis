@@ -151,11 +151,6 @@ FROM python-stage AS golang-stage
 
 
 FROM golang-stage AS node-js-stage
-WORKDIR /root/ 
-RUN apt --quiet=2 update \
-    && curl -sL https://deb.nodesource.com/setup_current.x \
-    | sudo -E bash - \
-    && apt install -y nodejs
 
 
 FROM node-js-stage AS julia-stage
