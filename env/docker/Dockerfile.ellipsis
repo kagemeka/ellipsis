@@ -7,8 +7,6 @@ FROM nvidia/cuda:${CUDA}-cudnn8-devel-ubuntu20.04 AS on-gpu
 LABEL com.kagemeka.gpu=true
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
-
-
 WORKDIR /root/
 
 
@@ -42,8 +40,17 @@ RUN \
 
 
 FROM rs-stage AS dart-stage
-COPY rs/setup.sh .
+COPY dart/setup.sh .
 RUN \
   chmod +x setup.sh \
   && ./setup.sh \
   && rm setup.sh
+
+
+FROM dart-stage AS swift-stage
+COPY swift/setup.sh .
+RUN \
+  chmod +x setup.sh \
+  && ./setup.sh \
+  && rm setup.sh
+ENV SOURCEKIT_TOOLCHAIN_PATH=/usr/local/swift
