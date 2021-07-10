@@ -62,3 +62,11 @@ RUN \
   chmod +x setup.sh \
   && ./setup.sh \
   && rm setup.sh
+
+
+FROM cpp-stage AS node-stage
+COPY node/setup.sh .
+RUN \
+  chmod +x setup.sh \
+  && ./setup.sh \
+  && rm setup.sh
