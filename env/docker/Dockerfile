@@ -140,7 +140,8 @@ COPY --from=builder /root/requirements.txt /root/
 
 
 FROM ubuntu:20.04 AS mecab-stage
-    && git clone --depth 1 \
+RUN \
+    git clone --depth 1 \
     https://github.com/neologd/mecab-ipadic-neologd.git \
     && echo yes | \
     ./mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n \
@@ -194,12 +195,7 @@ RUN apt --quiet=2 update \
 
 
 FROM dart-stage AS rust-stage
-WORKDIR /root/ 
-RUN apt --quiet=2 update \
-    && curl --proto '=https' --tlsv1.2 -sSf \
-    https://sh.rustup.rs \
-    | sh -s -- -y \
-    && echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc 
+
 
 
 FROM rust-stage AS c-sharp-stage

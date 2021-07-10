@@ -31,3 +31,11 @@ RUN \
   chmod +x setup.sh \
   && ./setup.sh \
   && rm setup.sh
+
+
+FROM go-stage AS rs-stage
+COPY rs/setup.sh .
+RUN \
+  chmod +x setup.sh \
+  && ./setup.sh \
+  && rm setup.sh
