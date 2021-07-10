@@ -1,4 +1,7 @@
 ARG CUDA=11.2.0
+ARG PYVER=3.9
+ARG GOVER=1.16.5
+
 
 FROM nvidia/cuda:${CUDA}-cudnn8-devel-ubuntu20.04 AS on-gpu
 LABEL com.kagemeka.gpu=true
@@ -8,16 +11,23 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /root/
 
-ARG PYVER=3.9
 
+FROM on-gpu AS py-stage
 COPY py/setup.sh .
 RUN \
   chmod +x setup.sh \
   && ./setup.sh \
   && rm setup.sh
-
 COPY py/requirements.txt .
 RUN \
   pip install -Ur \
   requirements.txt \
   && rm requirements.txt
+
+
+FROM py-stage AS go-stage
+COPY go/setup.sh .
+RUN \
+  chmod +x setup.sh \
+  && ./setup.sh \
+  && rm setup.sh

@@ -20,6 +20,7 @@ python$PYVER-dev \
 python$PYVER-distutils \
 python3-opencv \
 python3-pip \
+python3-neovim \
 tesseract-ocr \
 && ln -fns \
 /usr/bin/python$PYVER \

@@ -33,6 +33,7 @@ ENV DOCKER_BUILDKIT=1 \
     TZ=Asia/Tokyo \
     SDL_AUDIODRIVER=dsp
 
+
 ARG github_access_token
 COPY requirements.txt /root/ 
 WORKDIR /root/
@@ -135,33 +136,10 @@ RUN ln -snf \
 
 FROM base-stage AS python-stage
 COPY --from=builder /root/requirements.txt /root/
-WORKDIR /root/ 
-ARG PYVER=3.9
-RUN apt update \
-    && add-apt-repository \
-    ppa:deadsnakes/ppa \
-    && apt -q=2 update \
-    && apt install -y \
-    python${PYVER} \
-    python${PYVER}-distutils \
-    python${PYVER}-dev \
-    python${PYVER}-tk \
-    python3-pip \
-    && rm /usr/bin/python3 \
-    && ln -s \
-    /usr/bin/python${PYVER} \
-    /usr/bin/python3 \
-    && curl \
-    https://bootstrap.pypa.io/get-pip.py \
-    -o get-pip.py \
-    && python3 get-pip.py \
-    && ln -sn \
-    /usr/bin/python3 \
-    /usr/bin/python \
-    && pip3 install -U pip \
-    && pip install \
-    -Uqr requirements.txt \
-    && rm requirements.txt \
+
+
+
+FROM ubuntu:20.04 AS mecab-stage
     && git clone --depth 1 \
     https://github.com/neologd/mecab-ipadic-neologd.git \
     && echo yes | \
@@ -170,16 +148,6 @@ RUN apt update \
 
 
 FROM python-stage AS golang-stage
-ARG GO_VERSION=1.16.3
-WORKDIR /root/
-RUN apt --quiet=2 update \
-    && wget -qO - \
-    https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz \
-    | tar -xzC /usr/local/ \
-    && echo 'export GOPATH=/usr/local/go' >> ~/.bashrc \
-    && source ~/.bashrc \
-    && echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.bashrc \
-    && echo "export GOPATH=$HOME/myenv/lib/go" >> ~/.bashrc
 
 
 FROM golang-stage AS node-js-stage
