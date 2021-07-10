@@ -1,3 +1,5 @@
+#!/bin/bash
+
 apt -q=2 update \
 && apt install -yq=2 \
 apt-utils \
