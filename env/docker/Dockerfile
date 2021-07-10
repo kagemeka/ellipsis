@@ -198,35 +198,6 @@ ENV RUST_BACKTRACE=full
 
 
 FROM c-sharp-stage AS swift-stage
-ARG SWIFT_VER=5.3.3
-ARG TOOLCHAIN_VER=2021-02-02-a
-WORKDIR /root/ 
-RUN apt -q=2 update \
-    && wget -qO - \
-    https://swift.org/builds/swift-${SWIFT_VER}-release/ubuntu2004/swift-${SWIFT_VER}-RELEASE/swift-${SWIFT_VER}-RELEASE-ubuntu20.04.tar.gz \
-    | tar -xzC /usr/local/ \
-    --transform=s/-${SWIFT_VER}-RELEASE-ubuntu20.04// \
-    && echo 'export "PATH=/usr/local/swift/usr/bin:$PATH"' \
-    >> ~/.bashrc \
-    && wget -qO - \
-    https://swift.org/builds/development/ubuntu2004/swift-DEVELOPMENT-SNAPSHOT-${TOOLCHAIN_VER}/swift-DEVELOPMENT-SNAPSHOT-${TOOLCHAIN_VER}-ubuntu20.04.tar.gz \
-    | tar -xzC /usr/local/ \
-    --transform=s/DEVELOPMENT-SNAPSHOT-${TOOLCHAIN_VER}-ubuntu20.04/toolchain/ \
-    && echo 'export "PATH=/usr/local/swift-toolchain/usr/bin:$PATH"' \
-    >> ~/.bashrc \
-    && source ~/.bashrc \
-    && git clone https://github.com/apple/sourcekit-lsp.git \
-    && cd sourcekit-lsp \
-    # && swift package update \
-    # && swift build \
-    # -Xcxx -I/usr/local/swift-toolchain/usr/lib/swift \
-    # -Xcxx -I/usr/local/swift-toolchain/usr/lib/swift/Block \
-    && cd Editors/vscode \
-    && npm run createDevPackage
-
-ENV SOURCEKIT_TOOLCHAIN_PATH=/usr/local/swift-toolchain
-# must update toolchain(snapshot) regularly.
-# additional settings are required (on README)
 
 
 
