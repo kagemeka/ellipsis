@@ -3,7 +3,7 @@
 apt -q=2 update \
 && apt install -y \
 apt-utils \
-wget \ 
+wget \
 && wget -qO - \
 https://dl.google.com/go/go${GOVER}.linux-amd64.tar.gz \
 | tar -xzC /usr/local/ \

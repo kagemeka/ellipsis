@@ -54,3 +54,11 @@ RUN \
   && ./setup.sh \
   && rm setup.sh
 ENV SOURCEKIT_TOOLCHAIN_PATH=/usr/local/swift
+
+
+FROM swift-stage AS cpp-stage
+COPY cpp/setup.sh .
+RUN \
+  chmod +x setup.sh \
+  && ./setup.sh \
+  && rm setup.sh
