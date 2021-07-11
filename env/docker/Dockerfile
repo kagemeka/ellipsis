@@ -182,14 +182,6 @@ FROM dart-stage AS rust-stage
 
 
 FROM rust-stage AS c-sharp-stage
-WORKDIR /root/ 
-RUN apt --quiet=2 update \
-    && wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb \
-    -O packages-microsoft-prod.deb \
-    && dpkg -i packages-microsoft-prod.deb \
-    && apt --quiet=2 update \
-    && apt install --yes --quiet dotnet-sdk-3.1
-ENV RUST_BACKTRACE=full
 
 
 FROM c-sharp-stage AS swift-stage
