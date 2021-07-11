@@ -79,3 +79,19 @@ RUN \
   chmod +x setup.sh \
   && ./setup.sh \
   && rm setup.sh
+
+
+FROM ts-stage AS cs-stage
+COPY cs/setup.sh .
+RUN \
+  chmod +x setup.sh \
+  && ./setup.sh \
+  && rm setup.sh
+
+
+FROM cs-stage AS jl-stage
+COPY jl/setup.sh .
+RUN \
+  chmod +x setup.sh \
+  && ./setup.sh \
+  && rm setup.sh

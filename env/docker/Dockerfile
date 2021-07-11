@@ -154,15 +154,6 @@ FROM golang-stage AS node-js-stage
 
 
 FROM node-js-stage AS julia-stage
-ARG JULIA_VERSION=1.6.0
-WORKDIR /root/
-RUN apt --quiet=2 update \
-    && wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-$JULIA_VERSION-linux-x86_64.tar.gz \
-    && tar -C /usr/local \
-    -xvzf julia-$JULIA_VERSION-linux-x86_64.tar.gz \
-    && ln -s /usr/local/julia-$JULIA_VERSION/bin/julia \
-    /usr/bin/ \
-    && rm julia-$JULIA_VERSION-linux-x86_64.tar.gz
 
 
 FROM julia-stage AS kotlin-stage 
