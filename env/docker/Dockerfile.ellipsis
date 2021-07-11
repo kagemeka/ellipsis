@@ -95,3 +95,11 @@ RUN \
   chmod +x setup.sh \
   && ./setup.sh \
   && rm setup.sh
+
+
+FROM jl-stage AS kt-stage
+COPY kt/setup.sh .
+RUN \
+  chmod +x setup.sh \
+  && ./setup.sh \
+  && rm setup.sh

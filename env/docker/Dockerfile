@@ -53,7 +53,6 @@ RUN ln -snf \
     cmake \
     curl \
     default-jdk \
-    default-jre \
     default-libmysqlclient-dev \
     ffmpeg \
     file \
@@ -73,7 +72,6 @@ RUN ln -snf \
     libmysqlclient-dev \
     libopencv-dev \
     libpq-dev \
-    libpython2.7 \
     librdkit1 \
     libsm6 \
     libsqlite3-0 \
@@ -148,37 +146,13 @@ RUN \
 
 
 FROM python-stage AS golang-stage
-
-
 FROM golang-stage AS node-js-stage
-
-
 FROM node-js-stage AS julia-stage
-
-
-FROM julia-stage AS kotlin-stage 
-WORKDIR /root/
-RUN apt --quiet=2 update \
-    && curl -s https://get.sdkman.io | bash \
-    && source .sdkman/bin/sdkman-init.sh \
-    && sdk install kotlin 
-
-
+FROM julia-stage AS kotlin-stage
 FROM kotlin-stage AS dart-stage 
-
-
-
 FROM dart-stage AS rust-stage
-
-
-
 FROM rust-stage AS c-sharp-stage
-
-
 FROM c-sharp-stage AS swift-stage
-
-
-
 FROM swift-stage AS chrome-stage
 WORKDIR /root/
 RUN apt --quiet=2 update \
