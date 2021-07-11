@@ -1,4 +1,5 @@
 #!/bin/bash
+GOVER=1.16.5
 
 apt -q=2 update \
 && apt install -y \
