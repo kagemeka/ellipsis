@@ -45,6 +45,7 @@ RUN \
   chmod +x setup.sh \
   && ./setup.sh \
   && rm setup.sh
+ENV RUST_BACKTRACE=full
 
 
 FROM dart-stage AS swift-stage
